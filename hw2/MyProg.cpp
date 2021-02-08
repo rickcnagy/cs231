@@ -16,8 +16,8 @@ int main()
   jar2 = jar1;
   jar2.add(5);
 
-  std::cout << "\nJar1 contains" << jar1.quantity();
-  std::cout << "\nJar2 contains" << jar2.quantity();
+  std::cout << "\nJar1 contains " << jar1.quantity();
+  std::cout << "\nJar2 contains " << jar2.quantity();
   std::cout << std::endl;
 
   return 0;  // Success
