@@ -8,7 +8,10 @@
 
 #include <iostream>
 
-JarType::JarType() { std::cout << "rinsing jar..." << std::endl; }
+JarType::JarType() {
+  std::cout << "rinsing jar..." << std::endl;
+  initToEmpty();
+}
 
 JarType::JarType(int prefillAmount): numUnits(prefillAmount) {
   std::cout << "prefilling jar with " << prefillAmount << " ounces..."
@@ -25,6 +28,7 @@ JarType::JarType(char abbreviation) {
   } else {
     std::cout << "Invalid abbreviation: '" << abbreviation
               << "'; rinsing jar..." << std::endl;
+    initToEmpty();
   }
 }
 
@@ -34,12 +38,14 @@ void JarType::initToEmpty() { numUnits = 0; }
 
 void JarType::add(int n) {
   if (n > 0) {
+    std::cout << "Adding " << n << " units..." << std::endl;
     numUnits += n;
   }
 }
 
 void JarType::subtract(int n) {
-  if (n > 0) {
+  if (n > 0 && numUnits >+ n) {
+    std::cout << "Subtracting " << n << " units...";
     numUnits -= n;
   }
 }

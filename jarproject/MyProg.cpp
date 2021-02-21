@@ -6,8 +6,10 @@
 
 // Edit History:
 // 2021-02-14: Added jars 1 through 7 and added getInput() function
+// 2021-02-21: Made getInput() take a template type.
 
-int getInput(int& n);
+template <typename T>
+int getInput(T& n);
 
 int main() {
   JarType jar1, jar2;
@@ -45,12 +47,25 @@ int main() {
   JarType jar7;
   int number = 0;
 
-  int status = getInput(number);
+  int status = getInput<int>(number);
   if (status == 0) {
     jar7.add(number);
   }
 
   std::cout << "Jar7 contains " << jar7.quantity() << std::endl;
+
+  JarType shelf[3];
+  shelf[0] = jar1;
+  shelf[1] = jar2;
+  shelf[2] = jar5;
+
+  for (int i = 0; i< 3; i++) {
+    shelf[i].add((i + 1) * 10);
+  }
+
+  for (int i = 0; i < 3; i++) {
+    std::cout << shelf[i].quantity() << std::endl;
+  }
 
   return 0;  // Success
 }
@@ -58,10 +73,11 @@ int main() {
 // A function to ask the user for a value
 // Return status: 0  a valid number is entered
 //                1  a valid number is not entered
-int getInput(int& n) {
-  int temp;
+template <typename T>
+int getInput(T& n) {
+  T temp;
 
-  std::cout << "Please enter the number of units: ";
+  std::cout << "Please enter the number of units to add to this jar: ";
   std::cin >> temp;
 
   if (temp > 0) {
