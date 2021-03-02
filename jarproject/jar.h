@@ -4,8 +4,6 @@
 // Edit history:
 // 2021-02-14: Added default, int, and char constructors, added destructor,
 //     added add() and subtract() methods.
-#include <string>
-
 #ifndef JAR_H
 #define JAR_H
 
