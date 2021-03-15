@@ -80,7 +80,7 @@ int main() {
 
   JarType* jarPointer = nullptr;
   jarPointer = &jar1;
-  std::cout << "Showing quantities in jar1 via a pointer variable: "
+  std::cout << "Showing units in jar1 via a pointer variable: "
             << jarPointer->quantity() << std::endl;
 
   JarType* rack = new JarType[5];

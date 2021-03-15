@@ -42,7 +42,10 @@ JarType::JarType(JarType &other) {
   jarCount++;
 }
 
-JarType::~JarType() { jarCount--; }
+JarType::~JarType() {
+  std::cout << "in deconstructor..." << std::endl;
+  jarCount--;
+}
 
 void JarType::initToEmpty() { numUnits = 0; }
 
