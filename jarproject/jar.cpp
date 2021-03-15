@@ -4,6 +4,7 @@
 // Edit History:
 // 2021-02-14: Added default, int, and char constructors, added add() and
 //     subtract() methods.
+// 2021-03-15: Added implementations for copy function and static getJarCount().
 #include "jar.h"
 
 #include <iostream>
@@ -11,11 +12,13 @@
 JarType::JarType() {
   std::cout << "rinsing jar..." << std::endl;
   initToEmpty();
+  jarCount++;
 }
 
-JarType::JarType(int prefillAmount): numUnits(prefillAmount) {
+JarType::JarType(int prefillAmount) : numUnits(prefillAmount) {
   std::cout << "prefilling jar with " << prefillAmount << " ounces..."
             << std::endl;
+  jarCount++;
 }
 
 JarType::JarType(char abbreviation) {
@@ -30,9 +33,16 @@ JarType::JarType(char abbreviation) {
               << "'; rinsing jar..." << std::endl;
     initToEmpty();
   }
+  jarCount++;
 }
 
-JarType::~JarType() {}
+JarType::JarType(JarType &other) {
+  std::cout << "in copy constructor..." << std::endl;
+  numUnits = other.numUnits;
+  jarCount++;
+}
+
+JarType::~JarType() { jarCount--; }
 
 void JarType::initToEmpty() { numUnits = 0; }
 
@@ -44,10 +54,12 @@ void JarType::add(int n) {
 }
 
 void JarType::subtract(int n) {
-  if (n > 0 && numUnits >+ n) {
-    std::cout << "Subtracting " << n << " units...";
+  if (n > 0 && numUnits > +n) {
+    std::cout << "Subtracting " << n << " units..." << std::endl;
     numUnits -= n;
   }
 }
 
 int JarType::quantity() const { return numUnits; }
+
+int JarType::getJarCount() { return jarCount; }

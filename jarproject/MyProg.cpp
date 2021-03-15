@@ -7,12 +7,23 @@
 // Edit History:
 // 2021-02-14: Added jars 1 through 7 and added getInput() function
 // 2021-02-21: Made getInput() take a template type.
+// 2021-03-15: Added reveal() friend function, added rack[] pointer array, and
+//             added checks to JarType::getJarCount().
 
 template <typename T>
 int getInput(T& n);
 
+int reveal(JarType j);
+
+int JarType::jarCount = 0;
+
 int main() {
+  std::cout << "jarCount starts at " << JarType::getJarCount() << std::endl;
+
   JarType jar1, jar2;
+
+  std::cout << "After jar1 and jar2, jarCount is: " << JarType::getJarCount()
+            << std::endl;
 
   // Removed the next line as it causes a compilation error
   // jar1.numUnits = 10000;
@@ -59,7 +70,7 @@ int main() {
   shelf[1] = jar2;
   shelf[2] = jar5;
 
-  for (int i = 0; i< 3; i++) {
+  for (int i = 0; i < 3; i++) {
     shelf[i].add((i + 1) * 10);
   }
 
@@ -67,8 +78,40 @@ int main() {
     std::cout << shelf[i].quantity() << std::endl;
   }
 
+  JarType* jarPointer = nullptr;
+  jarPointer = &jar1;
+  std::cout << "Showing quantities in jar1 via a pointer variable: "
+            << jarPointer->quantity() << std::endl;
+
+  JarType* rack = new JarType[5];
+  rack[0].add(1);
+  (*(rack + 1)).add(2);
+  (rack + 2)->add(3);
+
+  std::cout << "The value in the first jar is " << rack[0].quantity()
+            << std::endl;
+  std::cout << "The value in the second jar is " << rack[1].quantity()
+            << std::endl;
+  std::cout << "The value in the third jar is " << rack[2].quantity()
+            << std::endl;
+
+  delete[] rack;
+
+  JarType jar31(jar1);
+  std::cout << "The value in the (original) jar 1 is " << jar1.quantity()
+            << std::endl;
+  std::cout << "The value in the (copied) jar 31 is " << jar31.quantity()
+            << std::endl;
+
+  std::cout << "The value of reveal(jar1) is: " << std::endl
+            << reveal(jar1) << std::endl;
+
+  std::cout << "jarCount ends at " << JarType::getJarCount() << std::endl;
+
   return 0;  // Success
 }
+
+int reveal(JarType j) { return j.numUnits; }
 
 // A function to ask the user for a value
 // Return status: 0  a valid number is entered
