@@ -1,3 +1,3 @@
 // Declare the getStandardDeviation() function
 
-double getStandardDeviation(double data[]);
+double getStandardDeviation(double data[], int length);
