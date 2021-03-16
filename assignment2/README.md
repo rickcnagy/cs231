@@ -4,25 +4,26 @@ Rick Nagy
 
 ## Structure
 
-- `standard_deviation_calculator.cpp` provides a
-  `double getStandardDeviation(double[] data)` function that calculates the
-  standard deviation for the given data array.
-- `standard_deviation_test.cpp` is *test* that should not be run in production.
-  It asserts that `getStandardDeviation()` returns the right value for a series
-  of provided input arrays.
-- `standard_deviation_cli.cpp` provides an interactive program that
-  takes in a series of doubles from `stdin` and gets their standard deviation.
+- `calculator.cpp` provides a
+  `Calculator` class that takes in a data array and its length and can calculate
+  standard deviation and mean.
+- `calculator_test.cpp` is *test* that should not be run in production.
+  It asserts that `Calculator.getMean()` and `Calculator.getStandardDeviation()`
+  returns the right value for a series of provided input arrays.
+- `calculator_cli.cpp` provides an interactive program that
+  takes in a series of doubles from `stdin` and calculates their mean and
+  standard deviation.
 
 ## Running tests
 
 ```sh
-g++ standard_deviation_test.cpp standard_deviation_calculator.cpp -o standard_deviation_test && ./standard_deviation_test
+g++ calculator_test.cpp calculator.cpp -o calculator_test && ./calculator_test
 ```
 
 ## Running CLI
 
 ```sh
-g++ standard_deviation_cli.cpp standard_deviation_calculator.cpp -o standard_deviation_cli && ./standard_deviation_cli
+g++ calculator_cli.cpp calculator.cpp -o calculator_cli && ./calculator_cli
 ```
 
 ## Styling
