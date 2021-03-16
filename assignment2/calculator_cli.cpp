@@ -15,7 +15,7 @@ int main() {
   Calculator calculator = Calculator(input);
   if (calculator.getDataCount() > 100) {
     std::cout << "You inputted too many numbers! Please enter no more than 100 "
-              << "numbers." << std::endl;
+              << "floating point numbers." << std::endl;
     return 1;
   }
 
