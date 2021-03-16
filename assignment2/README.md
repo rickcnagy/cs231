@@ -2,6 +2,13 @@
 
 Rick Nagy
 
+This is a slightly different take on the program - instead of repeatedly calling
+`std::cin`, this uses `std::getline()` to get the whole input, then uses regex
+to extract the numbers. This makes testing easier and seems closer to how it
+might be used IRL - e.g. if a user submits a string on a web form.
+
+Be sure to run `calculator_test.cpp` to see the tests in action!
+
 ## Structure
 
 - `calculator.cpp` provides a

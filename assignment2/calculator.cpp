@@ -2,11 +2,12 @@
 
 #include "calculator.h"
 
+#include <math.h>
+
 #include <iostream>
 #include <regex>
 #include <string>
 #include <vector>
-#include <math.h>
 
 Calculator::Calculator(std::string input) {
   std::regex decimalRegex("([-0-9\\.]+)");
@@ -19,6 +20,19 @@ Calculator::Calculator(std::string input) {
 
     input = match.suffix();
   }
+}
+
+int Calculator::getDataCount() { return data.size(); }
+
+std::string Calculator::getDataString() {
+  std::string dataString;
+  for (int i = 0; i < data.size(); i++) {
+    dataString.append(std::to_string(data[i]));
+    if (i < data.size() - 1) {
+      dataString.append(" ");
+    }
+  }
+  return dataString;
 }
 
 double Calculator::getStandardDeviation() {

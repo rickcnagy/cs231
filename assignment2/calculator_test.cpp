@@ -3,8 +3,8 @@
 #include "calculator.h"
 
 #include <cmath>
-#include <string>
 #include <iostream>
+#include <string>
 
 void assertOutputs(std::string input, double expectedMean,
                    double expectedStandardDeviation);
@@ -23,21 +23,24 @@ int main() {
   assertOutputs("1 2 3 4 5 6 7 8 9 10", 5.5, 3.02765);
 
   std::cout << "All tests passed!" << std::endl;
+  return 0;
 }
 
 void assertOutputs(std::string input, double expectedMean,
                    double expectedStandardDeviation) {
   Calculator calculator = Calculator(input);
   assertEqual("mean", expectedMean, calculator.getMean());
-  assertEqual(
-      "standard deviation", expectedStandardDeviation,
-      calculator.getStandardDeviation());
+  assertEqual("standard deviation", expectedStandardDeviation,
+              calculator.getStandardDeviation());
 }
 
 void assertEqual(std::string label, double expected, double actual) {
-  if (round5(expected) != round5(actual)) {
-    std::cout << "Assertion failed for " << label << "\n\tExpected: "
-              << expected << "\n\tActual: " << actual << std::endl;
+  if (round5(expected) == round5(actual)) {
+    std::cout << "Passed (" << label << "): " << actual << std::endl;
+  } else {
+    std::cout << "Assertion failed for " << label
+              << "\n\tExpected: " << expected << "\n\tActual: " << actual
+              << std::endl;
   }
 }
 
