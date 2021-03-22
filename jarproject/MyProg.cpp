@@ -3,15 +3,16 @@
 #include <iostream>
 
 #include "jar.h"
+#include "LabeledJar.h"
 
 // Edit History:
 // 2021-02-14: Added jars 1 through 7 and added getInput() function
 // 2021-02-21: Made getInput() take a template type.
 // 2021-03-15: Added reveal() friend function, added rack[] pointer array, and
 //             added checks to JarType::getJarCount().
-
-template <typename T>
-int getInput(T& n);
+// 2021-03-21: Removed jar7 to make it easier to run the program and removed
+//             getInput() since it's no longer used. Will re-add if necessary.
+// 2021-03-22: Added usages of overloaded operators and LabeledJar.
 
 int reveal(JarType j);
 
@@ -54,16 +55,6 @@ int main() {
   std::cout << "Jar4 contains " << jar4.quantity() << std::endl;
   std::cout << "Jar5 contains " << jar5.quantity() << std::endl;
   std::cout << "Jar6 contains " << jar6.quantity() << std::endl;
-
-  JarType jar7;
-  int number = 0;
-
-  int status = getInput<int>(number);
-  if (status == 0) {
-    jar7.add(number);
-  }
-
-  std::cout << "Jar7 contains " << jar7.quantity() << std::endl;
 
   JarType shelf[3];
   shelf[0] = jar1;
@@ -108,25 +99,23 @@ int main() {
 
   std::cout << "jarCount ends at " << JarType::getJarCount() << std::endl;
 
+  // Overload <<
+  std::cout << jar1;
+
+  // Add two jars
+  JarType jar30;
+  jar30 = jar1 + jar2;
+  std::cout << jar30;
+
+  // Convert a jar to an int and prefill from an int
+  int xyz = jar1;
+  jar2 = xyz;
+
+  LabeledJar pickles(25);
+  LabeledJar candy("Kit-Kat");
+  LabeledJar abc("Kit-Kat", 25);
+
   return 0;  // Success
 }
 
 int reveal(JarType j) { return j.numUnits; }
-
-// A function to ask the user for a value
-// Return status: 0  a valid number is entered
-//                1  a valid number is not entered
-template <typename T>
-int getInput(T& n) {
-  T temp;
-
-  std::cout << "Please enter the number of units to add to this jar: ";
-  std::cin >> temp;
-
-  if (temp > 0) {
-    n = temp;
-    return 0;
-  } else {
-    return 1;
-  }
-}

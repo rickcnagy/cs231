@@ -5,6 +5,8 @@
 // 2021-02-14: Added default, int, and char constructors, added add() and
 //     subtract() methods.
 // 2021-03-15: Added implementations for copy function and static getJarCount().
+// 2021-03-21: Added << and + overloads plus conversion to int.
+
 #include "jar.h"
 
 #include <iostream>
@@ -43,7 +45,6 @@ JarType::JarType(JarType &other) {
 }
 
 JarType::~JarType() {
-  std::cout << "in deconstructor..." << std::endl;
   jarCount--;
 }
 
@@ -66,3 +67,18 @@ void JarType::subtract(int n) {
 int JarType::quantity() const { return numUnits; }
 
 int JarType::getJarCount() { return jarCount; }
+
+std::ostream &operator<<(std::ostream &os, const JarType &j) {
+  os << "The supplied jar contains " << j.numUnits << " units." << std::endl;
+  return os;
+}
+
+JarType JarType::operator+(const JarType &j) {
+  JarType tmpJar;
+  tmpJar.add(this -> numUnits + j.numUnits);
+  return tmpJar;
+}
+
+JarType::operator int() {
+  return numUnits;
+}

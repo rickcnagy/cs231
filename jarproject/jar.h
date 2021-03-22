@@ -6,6 +6,9 @@
 //     added add() and subtract() methods.
 // 2021-03-15: Added reveal() friend function, copy function, and static
 //             getJarCount().
+
+#include <iostream>
+
 #ifndef JAR_H
 #define JAR_H
 
@@ -14,9 +17,13 @@ class JarType {
   static int getJarCount();
 
   friend int reveal(JarType j);
+  friend std::ostream &operator<<(std::ostream &os, const JarType &j);
+
+  JarType operator+(const JarType &j);
+  operator int();
 
   explicit JarType();
-  explicit JarType(int prefillAmount);
+  JarType(int prefillAmount);
   explicit JarType(char abbreviation);
   JarType(JarType &other);
   ~JarType();
