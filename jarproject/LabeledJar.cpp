@@ -12,9 +12,8 @@ LabeledJar::LabeledJar() {
   std::cout << "Getting labeled jar ready" << std::endl;
 }
 
-LabeledJar::LabeledJar(int numUnits) {
+LabeledJar::LabeledJar(int numUnits) : JarType(numUnits) {
   label = "Generic";
-  numUnits = numUnits;
   std::cout << "Getting labeled jar ready with " << numUnits << " units"
             << std::endl;
 }
@@ -23,8 +22,7 @@ LabeledJar::LabeledJar(std::string label) : label(label) {
   std::cout << "Getting labeled jar called " << label << " ready" << std::endl;
 }
 
-LabeledJar::LabeledJar(std::string label, int numUnits) : label(label) {
-  numUnits = numUnits;
+LabeledJar::LabeledJar(std::string label, int numUnits) : JarType(numUnits), label(label) {
   std::cout << "Getting labeled jar called "
             << label << " ready with " << numUnits << " units" << std::endl;
 }

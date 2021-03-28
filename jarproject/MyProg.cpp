@@ -112,8 +112,13 @@ int main() {
   jar2 = xyz;
 
   LabeledJar pickles(25);
+  std::cout << pickles.quantity() << " " << pickles.getLabel() << std::endl;
+
   LabeledJar candy("Kit-Kat");
+  std::cout << candy.quantity() << " " << candy.getLabel() << std::endl;
+
   LabeledJar abc("Kit-Kat", 25);
+  std::cout << abc.quantity() << " " << abc.getLabel() << std::endl;
 
   return 0;  // Success
 }
