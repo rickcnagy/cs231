@@ -2,7 +2,8 @@
 // Declare data type LabeledJar
 
 // Edit history:
-// 2021-03-21: Create initial LabeledJar class
+// 2021-03-21: Create initial LabeledJar class.
+// 2021-03-28: Add virtual showInfo() along with virtual JarType::showInfo().
 
 #include <string>
 
@@ -20,6 +21,8 @@ class LabeledJar : public JarType {
   ~LabeledJar();
 
   std::string getLabel() const;
+
+  virtual void showInfo();
 
  private:
   std::string label;

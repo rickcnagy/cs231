@@ -1,9 +1,11 @@
 // A program to manipulate a few jar objects
 
 #include <iostream>
+#include <memory>
+#include <stdexcept>
 
-#include "jar.h"
 #include "LabeledJar.h"
+#include "jar.h"
 
 // Edit History:
 // 2021-02-14: Added jars 1 through 7 and added getInput() function
@@ -13,6 +15,7 @@
 // 2021-03-21: Removed jar7 to make it easier to run the program and removed
 //             getInput() since it's no longer used. Will re-add if necessary.
 // 2021-03-22: Added usages of overloaded operators and LabeledJar.
+// 2021-03-28: Add showInfo() test, exceptions test, and unique_ptr test.
 
 int reveal(JarType j);
 
@@ -39,7 +42,11 @@ int main() {
   std::cout << "Jar1 contains " << jar1.quantity() << std::endl;
   std::cout << "Jar2 contains " << jar2.quantity() << std::endl;
 
-  jar1.add(-5000);
+  try {
+    jar1.add(-5000);
+  } catch (std::invalid_argument& e) {
+    // Ignore
+  }
   jar2.subtract(10);
 
   std::cout << "Jar1 contains " << jar1.quantity() << std::endl;
@@ -119,6 +126,39 @@ int main() {
 
   LabeledJar abc("Kit-Kat", 25);
   std::cout << abc.quantity() << " " << abc.getLabel() << std::endl;
+
+  // Demonstrate showinfo's polymorphism
+  JarType* arrayOfJars[4];
+  arrayOfJars[0] = &jar1;
+  arrayOfJars[1] = &pickles;
+  arrayOfJars[2] = &jar2;
+  arrayOfJars[3] = &abc;
+  for (int i = 0; i < 4; i++) {
+    arrayOfJars[i]->showInfo();
+  }
+
+  // Test out exceptions
+  try {
+    jar1.add(-100);
+  } catch (std::invalid_argument& e) {
+    std::cout << e.what() << std::endl;
+  }
+
+  try {
+    jar1.subtract(1000);
+  } catch (std::invalid_argument& e) {
+    std::cout << e.what() << std::endl;
+  }
+
+  // Try out unique_ptr
+  const int arraySize = 3;
+  std::unique_ptr<JarType[]> warehouse(new JarType[arraySize]);
+  warehouse[0].add(15);
+  warehouse[1].add(3);
+  warehouse[2].add(1300);
+  for (int i = 0; i < arraySize; i++) {
+    warehouse[i].showInfo();
+  }
 
   return 0;  // Success
 }

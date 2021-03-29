@@ -6,6 +6,8 @@
 //     subtract() methods.
 // 2021-03-15: Added implementations for copy function and static getJarCount().
 // 2021-03-21: Added << and + overloads plus conversion to int.
+// 2021-03-28: Add showInfo() implementation and throw exceptions when add() and
+//             subtract() are passed invalid values.
 
 #include "jar.h"
 
@@ -44,20 +46,29 @@ JarType::JarType(JarType &other) {
   jarCount++;
 }
 
-JarType::~JarType() {
-  jarCount--;
-}
+JarType::~JarType() { jarCount--; }
 
 void JarType::initToEmpty() { numUnits = 0; }
 
 void JarType::add(int n) {
-  if (n > 0) {
-    std::cout << "Adding " << n << " units..." << std::endl;
-    numUnits += n;
+  if (n <= 0) {
+    throw std::invalid_argument("Invalid value to add: " + std::to_string(n));
   }
+
+  std::cout << "Adding " << n << " units..." << std::endl;
+  numUnits += n;
 }
 
 void JarType::subtract(int n) {
+  if (n <= 0) {
+    throw std::invalid_argument("Invalid value to subtract: " +
+                                std::to_string(n));
+  } else if (numUnits < n) {
+    throw std::invalid_argument(
+        "Can't subtract because it would make units negative: " +
+        std::to_string(n));
+  }
+
   if (n > 0 && numUnits > +n) {
     std::cout << "Subtracting " << n << " units..." << std::endl;
     numUnits -= n;
@@ -75,10 +86,12 @@ std::ostream &operator<<(std::ostream &os, const JarType &j) {
 
 JarType JarType::operator+(const JarType &j) {
   JarType tmpJar;
-  tmpJar.add(this -> numUnits + j.numUnits);
+  tmpJar.add(this->numUnits + j.numUnits);
   return tmpJar;
 }
 
-JarType::operator int() {
-  return numUnits;
+JarType::operator int() { return numUnits; }
+
+void JarType::showInfo() {
+  std::cout << "Jar with " << numUnits << " units." << std::endl;
 }

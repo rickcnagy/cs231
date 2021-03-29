@@ -6,6 +6,7 @@
 //     added add() and subtract() methods.
 // 2021-03-15: Added reveal() friend function, copy function, and static
 //             getJarCount().
+// 2021-03-28: Add virtual showInfo().
 
 #include <iostream>
 
@@ -27,10 +28,13 @@ class JarType {
   explicit JarType(char abbreviation);
   JarType(JarType &other);
   ~JarType();
+
   void initToEmpty();    // Initialize a jar
   void add(int n);       // Add n units to jar
   void subtract(int n);  // Subtract n units from jar
   int quantity() const;  // Reveal number of units in jar
+
+  virtual void showInfo();
 
  private:
   static int jarCount;
