@@ -1,3 +1,6 @@
+// Logic for generating an HTTP response given a request string - so essentially
+// the "application" part of this server.
+
 #include "generate_response.h"
 
 #include <iostream>
@@ -12,7 +15,11 @@ Request build_request(std::string raw_request);
 std::string generate_plain_text_200(std::string body);
 std::string get_query_param_value(Request request, std::string param_name);
 
-std::string generate_response(const std::string raw_request) {
+// Generates a valid HTTP response no matter the request. If it's a valid
+// request, we'll respond with a 200 and appropriate hello world body (including
+// support for query params!), and if it's somehow invalid (non-root path, not
+// GET, etc), we respond with the proper HTTP error response.
+std::string generate_hello_world_response(const std::string raw_request) {
   struct Request request;
   try {
     request = build_request(raw_request);
@@ -42,6 +49,8 @@ std::string generate_response(const std::string raw_request) {
   }
 }
 
+// Builds a Request struct that captures raw_request, parsed according to the
+// HTTP RFC.
 Request build_request(std::string raw_request) {
   Request request = Request();
 
@@ -58,6 +67,7 @@ Request build_request(std::string raw_request) {
   return request;
 }
 
+// Generates a 200 response with the supplied body
 std::string generate_plain_text_200(std::string body) {
   return "HTTP/1.1 200 OK\n"
          "Content-type: plaintext\n"
@@ -69,6 +79,8 @@ std::string generate_plain_text_200(std::string body) {
          "\n";
 }
 
+// Gets the value for the query param named param_name. If there's no such
+// param, an empty string is returned.
 std::string get_query_param_value(Request request, std::string param_name) {
   std::regex value_regex(param_name + "=([^&]+)");
   std::smatch match;

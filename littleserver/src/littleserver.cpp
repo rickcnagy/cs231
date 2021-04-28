@@ -1,3 +1,8 @@
+// Starts a very, very lightweight HTTP server at a random port. The server
+// responds only to GET requests to /. The response will always be plaintext.
+// The user can optionally supply a query param which will affect the response
+// body.
+
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,7 +56,7 @@ int main() {
     std::cout << request << std::endl;
 
     // Generate a response and send to the client
-    std::string response = generate_response(request);
+    std::string response = generate_hello_world_response(request);
     std::cout << response << std::endl << std::endl;
     const int sent_bytes =
         send(connection_fd, response.c_str(), response.length(), 0);
